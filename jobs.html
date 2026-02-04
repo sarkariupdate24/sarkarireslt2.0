@@ -1,1 +1,35 @@
-<h1>लेटेस्ट जॉब्स</h1><p>यहाँ सभी नई नौकरियों की जानकारी मिलेगी।</p>
+<h2>Latest Jobs</h2>
+
+<table border="1" width="100%">
+  <thead>
+    <tr>
+      <th>Job</th>
+      <th>Date</th>
+      <th>Link</th>
+    </tr>
+  </thead>
+  <tbody id="jobData"></tbody>
+</table>
+
+<script>
+fetch("https://script.google.com/macros/s/AKfycbz44-GUlbPG3nEoLEkihNFyGN_7-4rrfXN7xQBj2XF-znLHAhlVi1_bYN5DP6K4zPf9/exec")
+.then(res => res.json())
+.then(data => {
+  // data is 2D array from sheet
+  let table = "";
+  // 0th row is header row
+  for (let i = 1; i < data.length; i++) {
+    let row = data[i];
+    let job = row[0];
+    let date = row[1];
+    let link = row[2];
+
+    table += `<tr>
+      <td>${job}</td>
+      <td>${date}</td>
+      <td><a href="${link}" target="_blank">View</a></td>
+    </tr>`;
+  }
+  document.getElementById("jobData").innerHTML = table;
+});
+</script>
